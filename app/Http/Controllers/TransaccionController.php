@@ -10,9 +10,7 @@ class TransaccionController extends Controller
 
     public function index()
     {
-
-       $transacciones = Transaccion::all();
-
+        $transacciones = Transaccion::included()->get();
         return response()->json($transacciones);
     }
 

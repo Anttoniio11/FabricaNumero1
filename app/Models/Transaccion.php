@@ -15,7 +15,9 @@ class Transaccion extends Model
     ];
 
      // Relaciones permitidas para incluir
-     protected $allowIncluded = ['tipoTransaccion', 'user' ];
+     protected $allowIncluded = [
+        'tipoTransaccion', 'user'
+    ];
 
      // Campos permitidos para filtrado
      protected $allowFilter = [
@@ -28,16 +30,17 @@ class Transaccion extends Model
      ];
 
 
-    public function tipoTransaccion(){
-        return $this->belongsTo(TipoTransaccion::class);
-    }
+     public function tipoTransaccion()
+     {
+         return $this->belongsTo(TipoTransaccion::class, 'id_tipo_transaccion');
+     }
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
 
-     // Scope para incluir relaciones
+    // Scope para incluir relaciones
     public function scopeIncluded(Builder $query)
     {
         if (empty($this->allowIncluded) || empty(request('included'))) {
@@ -47,12 +50,11 @@ class Transaccion extends Model
         $relations = explode(',', request('included'));
         $allowIncluded = collect($this->allowIncluded);
 
-        foreach ($relations as $key => $relationship) {
-            if (!$allowIncluded->contains($relationship)) {
-                unset($relations[$key]);
+        foreach ($relations as $relation) {
+            if ($allowIncluded->contains($relation)) {
+                $query->with($relation);
             }
         }
-        $query->with($relations);
     }
 
     // Scope para filtrar resultados
