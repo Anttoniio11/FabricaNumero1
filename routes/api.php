@@ -27,7 +27,7 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
 
 });
-
+    
 Route::group([
 
     'middleware' => 'auth:api',
