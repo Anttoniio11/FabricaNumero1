@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('id_tipo_transaccion')->references('id')->on('tipo_transaccions')->nullable();
 
             $table->unsignedBigInteger('id_user')->nullable();
-            $table->foreign('id_user')->references('id')->on('users')->nullable();
+            $table->foreign('id_user')->references('id')->on('users');
 
             $table->timestamps();
         });

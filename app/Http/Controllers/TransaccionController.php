@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaccion;
 use Dotenv\Util\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use PhpParser\Node\Expr\Cast\String_;
 
 class TransaccionController extends Controller
@@ -23,12 +25,16 @@ class TransaccionController extends Controller
             'motivo' => 'required|max:255',
             'monto' => 'required|max:255',
             'fecha' => 'required|max:255',
-
+            'id_tipo_transaccion' => 'required|max:255',
         ]);
 
-        $transaccion = Transaccion::create($request->all());
+        $id_user = Auth::id();
+        // var_dump($id_user);
+        $request['id_user'] = $id_user;
 
+        $transaccion = Transaccion::create($request->all());
         return response()->json($transaccion);
+
     }
 
     public function show($id)
@@ -50,6 +56,7 @@ class TransaccionController extends Controller
             'motivo' => 'required|max:255',
             'monto' => 'required|max:255',
             'fecha' => 'required|max:255',
+            'id_user' => 'required|max:255',
             'id_tipo_transaccion' => 'required|max:255',
         ]);
 

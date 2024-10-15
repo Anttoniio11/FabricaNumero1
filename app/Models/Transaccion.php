@@ -11,7 +11,7 @@ class Transaccion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'monto', 'motivo', 'fecha', 'id_tipo_transaccion',
+        'monto', 'motivo', 'fecha', 'id_user', 'id_tipo_transaccion',
     ];
 
      // Relaciones permitidas para incluir
@@ -31,12 +31,12 @@ class Transaccion extends Model
 
 
      public function tipoTransaccion()
-     {
-         return $this->belongsTo(TipoTransaccion::class, 'id_tipo_transaccion');
-     }
+    {
+        return $this->belongsTo(TipoTransaccion::class, 'id_tipo_transaccion');
+    }
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'id_user','id');
     }
 
 
