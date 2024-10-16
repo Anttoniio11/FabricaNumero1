@@ -29,7 +29,6 @@ class TransaccionController extends Controller
         ]);
 
         $id_user = Auth::id();
-        // var_dump($id_user);
         $request['id_user'] = $id_user;
 
         $transaccion = Transaccion::create($request->all());
@@ -56,9 +55,11 @@ class TransaccionController extends Controller
             'motivo' => 'required|max:255',
             'monto' => 'required|max:255',
             'fecha' => 'required|max:255',
-            'id_user' => 'required|max:255',
             'id_tipo_transaccion' => 'required|max:255',
         ]);
+
+        $id_user = Auth::id();
+        $request['id_user'] = $id_user;
 
         $transaccion->update($request->all());
 
